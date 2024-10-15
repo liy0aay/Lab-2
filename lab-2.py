@@ -1,19 +1,21 @@
 import csv
-
+from random import randrange 
 
 with open('books.csv', newline='', encoding='UTF 8') as fh: # или ISO-8859-1
     reader = csv.reader(fh, delimiter=';', quotechar='"')
+
     
     all_books = []
-    all_tags = ''
+    all_ta = []
     for row in reader:
         all_books.append(row)
-        all_tags+=str(row[12])  #придумать как убрать жанр отсюда, может перекинуть считывание в функцию
+        all_ta+=row[12]  
+
 
 
 
 all_books = all_books[1:]    #убрала первую строку с названиями столбцов
-
+all_tags = ''.join(all_ta[1:])
 
 count_of_long_names = 0
 
@@ -45,10 +47,9 @@ for i in range (20):
 
 def set_of_tags():
     a = all_tags.split("#")
-    print (len(a))
-    print (len(set(a)))
-    s = sorted(set(a))
-    print (s)
+    for tag in sorted(set(a)):
+        print (tag)
+  
 
 
 
@@ -58,7 +59,17 @@ set_of_tags()
 #Отредактировать и подчистить код выше, добавить цвет
 
 
-# Реализовать генератор библиографических ссылок вида <автор>. <название> - <год> для 20 записей. Записи выбрать произвольно. Список сохраняется как отдельный файл текстового формата с нумерацией строк.
+# Реализовать генератор библиографических ссылок вида <автор>. <название> - <год> для 20 записей.
+#  Записи выбрать произвольно. Список сохраняется как отдельный файл текстового формата с нумерацией строк.
+
+result = [randrange(0, 9400) for x in range (20)]
+
+with open ('result.txt', 'w') as fh:
+    for num, line in enumerate(result):
+        fh.write(f'{num + 1}.{line} {all_books[line][3]} {all_books[line][1]} {all_books[line][6][6:10]}\n')
+        
+
+
 
 
 # Используя приложенный файл currency.xml, выполнить следующее:
